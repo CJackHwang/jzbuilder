@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0071)http://soft.gz.cn:808/42z/MakeCertificate/rpt/View.aspx?id=202400100163 -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>海实奖状制作器网页版</title>
 		<meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
@@ -16,6 +15,67 @@
 		   div{white-space:nowrap;}
 		</style>
 		-->
+		<html>
+			<style>
+				.container {
+					width: 500px;
+					margin: auto;
+					text-align: center;
+				}
+			</style>
+			<body onload="resetFields()">
+				<div class="container">
+					<h2>自定义内容-制作你的证书</h2>
+					<form id="certificateForm">
+						<label for="schoolName">学校名称：</label><br>
+						<input type="text" id="schoolName" name="schoolName" placeholder="请输入学校名称"><br><br>
+			
+						<label for="certificateNumber">证书编号：</label><br>
+						<input type="text" id="certificateNumber" name="certificateNumber" placeholder="请输入证书编号"><br><br>
+			
+						<label for="certificateDate">证书日期：</label><br>
+						<input type="text" id="certificateDate" name="certificateDate" placeholder="请输入证书日期"><br><br>
+			
+						<label for="certificateContent">证书内容：</label><br>
+						<textarea id="certificateContent" name="certificateContent" placeholder="请输入证书内容"></textarea><br><br>
+			
+						<button type="button" onclick="confirmChanges()">确认修改</button>
+						<button type="button" onclick="resetFields()">重置信息</button>
+						<button type="button" id="btnDownload">下载证书</button>
+					</form>
+					<div style="display:none;">
+						<a href="" id="downloadImage"></a>
+					</div>
+			
+				<script>
+					function confirmChanges() {
+						var schoolName = document.getElementById("schoolName").value;
+						var certificateNumber = document.getElementById("certificateNumber").value;
+						var certificateDate = document.getElementById("certificateDate").value;
+						var certificateContent = document.getElementById("certificateContent").value;
+			
+						// 更新页面中的证书详细信息
+						document.getElementById("fb196097-6a75-4c97-b521-39a5bbf87b42").innerHTML = schoolName;
+						document.getElementById("33689b8e-ad19-40cc-93e7-4712d3fa38a9").innerHTML = certificateDate;
+						document.getElementById("f381e401-8cb8-4e1c-a8dc-1aa2eafdab6e").innerHTML = "证书编号：" + certificateNumber;
+						document.getElementById("28931161-5919-4e3b-9cc3-54da2b40e593").innerHTML = certificateContent;
+					}
+			
+					function resetFields() {
+						// 将输入字段重置为默认值
+						document.getElementById("schoolName").value = "广州市海珠外国语实验中学";
+						document.getElementById("certificateNumber").value = "1145141919810";
+						document.getElementById("certificateDate").value = "2024年02月30日";
+						document.getElementById("certificateContent").value = "高一 阳秦 同学荣获 2023-2024 学年第二学期修炼杯攀岩“岩王”争霸赛  一等奖（第一名）\n特颁此证，以资鼓励。";
+					}
+				</script>
+				
+				</div>
+			</body>
+			</html>
+
+		
+
 		<script>
 		  
             
@@ -107,8 +167,7 @@
 		</script>
 	</head>
 	<body>
-		<form name="Form1" method="post" action="http://soft.gz.cn:808/42z/MakeCertificate/rpt/ViewHtml.aspx?id=202400100163" id="Form1">
-<input type="hidden" name="__VIEWSTATE" value="dDwxMTczNTE5OTM3Ozs+0WqnH3pg/h+0xyvM7nnspGDqDpU=">
+
 			
 			
 			<div id="main_context" style="position:relative;width:1754px;height:1240px;">
@@ -116,69 +175,7 @@
 			<div data-field="" id="fb196097-6a75-4c97-b521-39a5bbf87b42" class="T" style="position: absolute; cursor: pointer; font-weight: 300; font-size: 40px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 997px; top: 834px; text-indent: 0px;">广州市海珠外国语实验中学</div><div data-field="获奖日期" id="33689b8e-ad19-40cc-93e7-4712d3fa38a9" class="T" style="position: absolute; cursor: pointer; font-weight: 300; font-size: 40px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 1050px; top: 914px; text-indent: 0px;">2024 年 02 月 30 日</div><div data-field="" id="f381e401-8cb8-4e1c-a8dc-1aa2eafdab6e" class="T" style="position: absolute; cursor: pointer; font-weight: 100; font-size: 20px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 275px; top: 962px; text-indent: 0px;">证书编号：1145141919810</div><div data-field="" id="28931161-5919-4e3b-9cc3-54da2b40e593" class="T" style="position: absolute; cursor: pointer; font-weight: 100; font-size: 50px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 210px; top: 497px; line-height: 100px; text-indent: 100px; width: 1300px;">高一 阳秦 同学荣获 2023-2024 学年第二学期修炼杯攀岩“岩王”争霸赛  一等奖（第一名）
 特颁此证，以资鼓励。</div><img data-field="2b0e158ff1c34fb786dac10a0197d1c2.png" id="b061f8dd-1567-45c5-bb90-610bce4d05e9" class="P" style="position: absolute; cursor: pointer; left: 1172px; top: 815px; width: 200px; height: 201px;" src="./证书查看_files/2b0e158ff1c34fb786dac10a0197d1c2.png"></div>
 		</form>		
-<html>
-<head>
-	<title>修改证书</title>
-	<style>
-		.container {
-			width: 500px;
-			margin: auto;
-			text-align: center;
-		}
-	</style>
-</head>
-<body onload="resetFields()">
-	<div class="container">
-		<h2>修改证书</h2>
-		<form id="certificateForm">
-			<label for="schoolName">学校名称：</label><br>
-			<input type="text" id="schoolName" name="schoolName" placeholder="请输入学校名称"><br><br>
 
-			<label for="certificateNumber">证书编号：</label><br>
-			<input type="text" id="certificateNumber" name="certificateNumber" placeholder="请输入证书编号"><br><br>
-
-			<label for="certificateDate">证书日期：</label><br>
-			<input type="text" id="certificateDate" name="certificateDate" placeholder="请输入证书日期"><br><br>
-
-			<label for="certificateContent">证书内容：</label><br>
-			<textarea id="certificateContent" name="certificateContent" placeholder="请输入证书内容"></textarea><br><br>
-
-			<button type="button" onclick="confirmChanges()">确认</button>
-			<button type="button" onclick="resetFields()">重置信息</button>
-		</form>
-	</div>
-	<div style="left:20px;top:20px;">
-		<input type="button" value="【点击此处下载】" id="btnDownload">
-		<div style="display:none;">
-			<a href="">
-		</div>
-
-	<script>
-		function confirmChanges() {
-			var schoolName = document.getElementById("schoolName").value;
-			var certificateNumber = document.getElementById("certificateNumber").value;
-			var certificateDate = document.getElementById("certificateDate").value;
-			var certificateContent = document.getElementById("certificateContent").value;
-
-			// 更新页面中的证书详细信息
-			document.getElementById("fb196097-6a75-4c97-b521-39a5bbf87b42").innerHTML = schoolName;
-			document.getElementById("33689b8e-ad19-40cc-93e7-4712d3fa38a9").innerHTML = certificateDate;
-			document.getElementById("f381e401-8cb8-4e1c-a8dc-1aa2eafdab6e").innerHTML = "证书编号：" + certificateNumber;
-			document.getElementById("28931161-5919-4e3b-9cc3-54da2b40e593").innerHTML = certificateContent;
-		}
-
-		function resetFields() {
-			// 将输入字段重置为默认值
-			document.getElementById("schoolName").value = "广州市海珠外国语实验中学";
-			document.getElementById("certificateNumber").value = "1145141919810";
-			document.getElementById("certificateDate").value = "2024年02月30日";
-			document.getElementById("certificateContent").value = "高一 阳秦 同学荣获 2023-2024 学年第二学期修炼杯攀岩“岩王”争霸赛  一等奖（第一名）\n特颁此证，以资鼓励。";
-		}
-	</script>
-	
-	</div>
-</body>
-</html>
 <footer>
 	<p>© 2024 CJack. All rights reserved.</p>
 	<p>个人博客: <a href="http://www.1145141919810.cfd">www.1145141919810.cfd</a></p>
