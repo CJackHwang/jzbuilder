@@ -1,406 +1,443 @@
 <!DOCTYPE html>
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>海实奖状制作器网页版</title>
-		<meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
-		<meta name="CODE_LANGUAGE" content="C#">
-		<meta http-equiv="X-UA-Compatible" content="IE=7">
-		<meta name="vs_defaultClientScript" content="JavaScript">
-		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
-		<script src="./证书查看_files/jquery-3.1.0.min.js" type="text/javascript"></script>
-		<script src="./证书查看_files/jquery.qrcode.min.js" type="text/javascript"></script>
-		<script src="./证书查看_files/canvas2image.js" type="text/javascript"></script>
-		<script src="./证书查看_files/html2canvas.js" type="text/javascript"></script>
-		<div style="display:none;">
-			<a href="" id="downloadImage"></a>
-		</div>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>海实奖状制作器网页版</title>
+    <meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
+    <meta name="CODE_LANGUAGE" content="C#">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta name="vs_defaultClientScript" content="JavaScript">
+    <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+    <script src="./证书查看_files/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="./证书查看_files/jquery.qrcode.min.js" type="text/javascript"></script>
+    <script src="./证书查看_files/canvas2image.js" type="text/javascript"></script>
+    <script src="./证书查看_files/html2canvas.js" type="text/javascript"></script>
+    <div style="display:none;">
+        <a href="" id="downloadImage"></a>
+    </div>
 
 
-		<head>
-			
-			<style>
-			#main_context {
-              border: 0px solid gray; /* 添加奖状一个灰色实线边框 */
+    <head>
+
+        <style>
+            #main_context {
+                border: 0px solid gray;
+                /* 添加奖状一个灰色实线边框 */
             }
-			  body {
-				font-family: 'Roboto', sans-serif;
-				background-color: #1a73e87d;
-				margin: 0;
-				padding: 25px;
-				}
-			  .container {
-				max-width: 500px;
-				min-width: 180px;
-				background-color: white;
-				margin: 20px auto;
-				padding: 20px;
-				box-shadow: 0 5px 15px rgb(0 0 0 / 35%);
-				border-radius: 35px;
-				text-align: left;
-				}
-			  h2 {
-				color: #1A73E8;
-				font-weight: 500;
-				text-align: center;
-				margin-bottom: 24px;
-				text-shadow: 0 5px 20px #1a73e87d;
-			  }
-			  label {
-				display: block;
-				margin-bottom: 8px;
-			  }
-			  input[type="text"],
-			  textarea {
-				width: 100%;
-				padding: 10px;
-				margin-bottom: 20px;
-				border: 1px solid #1a73e8;
-				border-radius: 10px;
-				box-sizing: border-box;
-				background-color: white;
-				}
-			  button {
-				border: none;
-				padding: 10px 24px;
-				margin-right: 10px;
-				margin-bottom: 10px;
-				border-radius: 8px;
-				cursor: pointer;
-				box-shadow: 0 5px 8px rgba(0,0,0,0.2);
-				transition: background-color 0.3s;
-				/* 设置默认按钮颜色 */
-				background-color: #1A73E8;
-				color: white;
-			  }
-			  /* 设置特定按钮颜色 */
-			  .button-confirm {
-				background-color: #1A73E8; /* 设置确认修改按钮的颜色 */
-				border-radius: 15px;
-			  }
-			  .button-reset {
-				background-color: #1A73E8; /* 设置模板范例按钮的颜色 */
-				border-radius: 15px;
-			  }
-			  .button-download {
-				background-color: #28a745; /* 设置下载证书按钮的成功色 */
-				border-radius: 15px;
-				
-			  }
-			  button:hover {
-				opacity: 0.8;
-			  }
-			  button:active {
-				opacity: 0.6;
-			  }
-			</style>
-		  </head>
-		  <body>
-			<div class="container">
-			  <h2>
-				在此处制作你的证书吧
-			  </h2>
-			  <form id="certificateForm">
-				<label for="schoolName">
-				学校名称：
-				</label>
-				<input type="text" id="schoolName" name="schoolName" placeholder="请输入学校名称">
-				<label for="certificateNumber">
-				证书编号：
-				</label>
-				<input type="text" id="certificateNumber" name="certificateNumber" placeholder="请输入证书编号">
-				<label for="certificateDate">
-				证书日期：
-				</label>
-				<input type="text" id="certificateDate" name="certificateDate" placeholder="请输入证书日期">
-				<label for="certificateContent">
-				证书内容：
-				</label>
-				<textarea id="certificateContent" name="certificateContent" placeholder="请输入证书内容" style="height: 100px;"></textarea>
-				<div style="display: flex; align-items: center; gap: 10px;">
-					<!-- 开关 -->
-					<label class="switch">
-					  <input type="checkbox" id="toggleImage">
-					  <span class="slider round"></span>
-					</label>
-					<span style="color: #333">包含印章</span>
-				  </div>
-				  
-				  
-				  <style>
-					/* 开关的样式 */
-					.switch {
-					  position: relative;
-					  display: inline-block;
-					  width: 60px;
-					  height: 34px;
-					}
-				  
-					/* 开关滑块的样式 */
-					.switch input {
-					  opacity: 0;
-					  width: 0;
-					  height: 0;
-					}
-				  
-					.slider {
-					  position: absolute;
-					  cursor: pointer;
-					  top: 0;
-					  left: 0;
-					  right: 0;
-					  bottom: 0;
-					  background-color: #ccc;
-					  box-shadow: 0 5px 8px rgba(0,0,0,0.2);
-					  -webkit-transition: .4s;
-					  transition: .4s;
-					}
-				  
-					.slider:before {
-					  position: absolute;
-					  content: "";
-					  height: 26px;
-					  width: 26px;
-					  left: 4px;
-					  bottom: 4px;
-					  background-color: white;
-					  -webkit-transition: .4s;
-					  transition: .4s;
-					}
-				  
-					input:checked + .slider {
-					  background-color: #1a73e8;
-					}
-				  
-					input:checked + .slider:before {
-					  -webkit-transform: translateX(26px);
-					  -ms-transform: translateX(26px);
-					  transform: translateX(26px);
-					}
-				  
-					/* 切换滑块的圆角样式 */
-					.slider.round {
-					  border-radius: 34px;
-					
-					}
-				  
-					.slider.round:before {
-					  border-radius: 50%;
-					}
-				  </style>
-				  
-				  <script>
-					document.getElementById("toggleImage").addEventListener('change', function() {
-				
-					  var singleImage = document.getElementById("b061f8dd-1567-45c5-bb90-610bce4d05e9");
-				  
-					  if (this.checked) {
-						singleImage.style.display = "block"; // 显示图像
-					  } else {
-						singleImage.style.display = "none"; // 隐藏图像
-					  }
-					});
-				  </script>
-				  <script>
-					window.onload = function() {
-						var singleImage = document.getElementById("b061f8dd-1567-45c5-bb90-610bce4d05e9");
-						singleImage.style.display = "none"; // 默认隐藏图像
-				
-						document.getElementById("toggleImage").addEventListener('change', function() {
-							if (this.checked) {
-								singleImage.style.display = "block"; // 显示图像
-							} else {
-								singleImage.style.display = "none"; // 隐藏图像
-							}
-						});
-					}
-				</script>
-				<button type="button" class="button-confirm" onclick="confirmChanges()" style="margin-top: 20px;">
-				确认修改
-				</button>
-				<button type="button" class="button-reset" onclick="resetFields()">
-				模板范例
-				</button>
-				<button type="button" class="button-download" id="btnDownload">
-				下载证书
-				</button>
-			  </form>
-			
+            body {
+                font-family: 'Roboto', sans-serif;
+                background-color: #1a73e87d;
+                margin: 0;
+                padding: 25px;
+            }
+            .container {
+                max-width: 500px;
+                min-width: 180px;
+                background-color: white;
+                margin: 20px auto;
+                padding: 20px;
+                box-shadow: 0 5px 15px rgb(0 0 0 / 35%);
+                border-radius: 35px;
+                text-align: left;
+            }
+            h2 {
+                color: #1A73E8;
+                font-weight: 500;
+                text-align: center;
+                margin-bottom: 24px;
+                text-shadow: 0 5px 20px #1a73e87d;
+            }
+            label {
+                display: block;
+                margin-bottom: 8px;
+            }
+            input[type="text"],
+            textarea {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #1a73e8;
+                border-radius: 10px;
+                box-sizing: border-box;
+                background-color: white;
+            }
+            button {
+                border: none;
+                padding: 10px 24px;
+                margin-right: 10px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                cursor: pointer;
+                box-shadow: 0 5px 8px rgba(0,0,0,0.2);
+                transition: background-color 0.3s;
+                /* 设置默认按钮颜色 */
+                background-color: #1A73E8;
+                color: white;
+            }
+            /* 设置特定按钮颜色 */
+            .button-confirm {
+                background-color: #1A73E8;
+                /* 设置确认修改按钮的颜色 */
+                border-radius: 15px;
+            }
+            .button-reset {
+                background-color: #1A73E8;
+                /* 设置模板范例按钮的颜色 */
+                border-radius: 15px;
+            }
+            .button-download {
+                background-color: #28a745;
+                /* 设置下载证书按钮的成功色 */
+                border-radius: 15px;
 
-			  <style>
-				.footer-container {
-				  background-color: #fff; /* 白色背景 */
-				  border-top: 2px solid #1a73e87d; /* 顶部边框，用以和页面其它部分区分 */
-				  margin-top: 20px;
-				  padding: 20px; /* 内边距 */
-				  font-family: Arial, sans-serif; /* 设置字体 */
-				}
-			  
-				.site-footer {
-				  text-align: center; /* 文本居中 */
-				  color: #333; /* 文本颜色 */
-				}
-			  
-				.footer-link {
-				  color: #1A73E8; /* 链接颜色 */
-				  text-decoration: none; /* 去掉下划线 */
-				}
-			  
-				.footer-link:hover {
-				  color: #f96; /* 鼠标悬停时的颜色 */
-				  text-decoration: underline; /* 添加下划线 */
-				}
-			  </style>
-			    <body>
+            }
+            button:hover {
+                opacity: 0.8;
+            }
+            button:active {
+                opacity: 0.6;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>
+                在此处制作你的证书吧
+            </h2>
+            <form id="certificateForm">
+                <label for="schoolName">
+                    学校名称：
+                </label>
+                <input type="text" id="schoolName" name="schoolName" placeholder="请输入学校名称">
+                <label for="certificateNumber">
+                    证书编号：
+                </label>
+                <input type="text" id="certificateNumber" name="certificateNumber" placeholder="请输入证书编号">
+                <label for="certificateDate">
+                    证书日期：
+                </label>
+                <input type="text" id="certificateDate" name="certificateDate" placeholder="请输入证书日期">
+                <label for="certificateContent">
+                    证书内容：
+                </label>
+                <textarea id="certificateContent" name="certificateContent" placeholder="请输入证书内容" style="height: 100px;"></textarea>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <!-- 开关 -->
+                    <label class="switch">
+                        <input type="checkbox" id="toggleImage">
+                        <span class="slider round"></span>
+                    </label>
+                    <span style="color: #333">包含印章</span>
+                </div>
 
-				<div class="footer-container">
-				  <footer class="site-footer">
-					<p>© 2024 CJack. All rights reserved.</p>
-					<p>My blog: <a href="http://www.1145141919810.cfd" class="footer-link">1145141919810.cfd</a></p>
-				  </footer>
-				</div>
-				
-				</body>
-			</div>
-		  
 
-  <script>
-    // 确认修改和重置字段的逻辑
-    function confirmChanges() {
-      // 此处添加处理表单的JavaScript函数
-    }
-    function resetFields() {
-      // 此处添加重设置表单为默认模板的JavaScript函数
-    }
-  </script>
+                <style>
+                    /* 开关的样式 */
+                    .switch {
+                        position: relative;
+                        display: inline-block;
+                        width: 60px;
+                        height: 34px;
+                    }
+
+                    /* 开关滑块的样式 */
+                    .switch input {
+                        opacity: 0;
+                        width: 0;
+                        height: 0;
+                    }
+
+                    .slider {
+                        position: absolute;
+                        cursor: pointer;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: #ccc;
+                        box-shadow: 0 5px 8px rgba(0,0,0,0.2);
+                        -webkit-transition: .4s;
+                        transition: .4s;
+                    }
+
+                    .slider:before {
+                        position: absolute;
+                        content: "";
+                        height: 26px;
+                        width: 26px;
+                        left: 4px;
+                        bottom: 4px;
+                        background-color: white;
+                        -webkit-transition: .4s;
+                        transition: .4s;
+                    }
+
+                    input:checked + .slider {
+                        background-color: #1a73e8;
+                    }
+
+                    input:checked + .slider:before {
+                        -webkit-transform: translateX(26px);
+                        -ms-transform: translateX(26px);
+                        transform: translateX(26px);
+                    }
+
+                    /* 切换滑块的圆角样式 */
+                    .slider.round {
+                        border-radius: 34px;
+
+                    }
+
+                    .slider.round:before {
+                        border-radius: 50%;
+                    }
+                </style>
+
+                <script>
+                    document.getElementById("toggleImage").addEventListener('change', function() {
+
+                        var singleImage = document.getElementById("b061f8dd-1567-45c5-bb90-610bce4d05e9");
+
+                        if (this.checked) {
+                            singleImage.style.display = "block"; // 显示图像
+                        } else {
+                            singleImage.style.display = "none"; // 隐藏图像
+                        }
+                    });
+                </script>
+                <script>
+                    window.onload = function() {
+                        var singleImage = document.getElementById("b061f8dd-1567-45c5-bb90-610bce4d05e9");
+                        singleImage.style.display = "none"; // 默认隐藏图像
+
+                        document.getElementById("toggleImage").addEventListener('change',
+                            function() {
+                                if (this.checked) {
+                                    singleImage.style.display = "block"; // 显示图像
+                                } else {
+                                    singleImage.style.display = "none"; // 隐藏图像
+                                }
+                            });
+                    }
+                </script>
+                <button type="button" class="button-confirm" onclick="confirmChanges()" style="margin-top: 20px;">
+                    确认修改
+                </button>
+                <button type="button" class="button-reset" onclick="resetFields()">
+                    模板范例
+                </button>
+                <button type="button" class="button-download" id="btnDownload">
+                    下载证书
+                </button>
+            </form>
+
+
+            <style>
+                .footer-container {
+                    background-color: #fff;
+                    /* 白色背景 */
+                    border-top: 2px solid #1a73e87d;
+                    /* 顶部边框，用以和页面其它部分区分 */
+                    margin-top: 20px;
+                    padding: 20px;
+                    /* 内边距 */
+                    font-family: Arial, sans-serif;
+                    /* 设置字体 */
+                }
+
+                .site-footer {
+                    text-align: center;
+                    /* 文本居中 */
+                    color: #333;
+                    /* 文本颜色 */
+                }
+
+                .footer-link {
+                    color: #1A73E8;
+                    /* 链接颜色 */
+                    text-decoration: none;
+                    /* 去掉下划线 */
+                }
+
+                .footer-link:hover {
+                    color: #f96;
+                    /* 鼠标悬停时的颜色 */
+                    text-decoration: underline;
+                    /* 添加下划线 */
+                }
+            </style>
+            <body>
+
+                <div class="footer-container">
+                    <footer class="site-footer">
+                        <p>
+                            © 2024 CJack. All rights reserved.
+                        </p>
+                        <p>
+                            My blog: <a href="http://www.1145141919810.cfd" class="footer-link">1145141919810.cfd</a>
+                        </p>
+                    </footer>
+                </div>
+
+            </body>
+        </div>
+
+
+        <script>
+            // 确认修改和重置字段的逻辑
+            function confirmChanges() {
+                // 此处添加处理表单的JavaScript函数
+            }
+            function resetFields() {
+                // 此处添加重设置表单为默认模板的JavaScript函数
+            }
+        </script>
+    </body>
+    <script>
+        function confirmChanges() {
+            var schoolName = document.getElementById("schoolName").value;
+            var certificateNumber = document.getElementById("certificateNumber").value;
+            var certificateDate = document.getElementById("certificateDate").value;
+            var certificateContent = document.getElementById("certificateContent").value;
+
+            // 更新页面中的证书详细信息
+            document.getElementById("fb196097-6a75-4c97-b521-39a5bbf87b42").innerHTML = schoolName;
+            document.getElementById("33689b8e-ad19-40cc-93e7-4712d3fa38a9").innerHTML = certificateDate;
+            document.getElementById("f381e401-8cb8-4e1c-a8dc-1aa2eafdab6e").innerHTML = "证书编号：" + certificateNumber;
+            document.getElementById("28931161-5919-4e3b-9cc3-54da2b40e593").innerHTML = certificateContent;
+            alert("修改成功");
+        }
+
+        function resetFields() {
+            // 将输入字段重置为默认值
+            document.getElementById("schoolName").value = "广州市海珠外国语实验中学";
+            document.getElementById("certificateNumber").value = "1145141919810";
+            document.getElementById("certificateDate").value = "2024年02月30日";
+            document.getElementById("certificateContent").value = "高一 阳秦 同学荣获 2023-2024 学年第二学期修炼杯攀岩“岩王”争霸赛  一等奖（第一名）\n特颁此证，以资鼓励。";
+        }
+
+    </script>
+
+</div>
 </body>
-				<script>
-					function confirmChanges() {
-						var schoolName = document.getElementById("schoolName").value;
-						var certificateNumber = document.getElementById("certificateNumber").value;
-						var certificateDate = document.getElementById("certificateDate").value;
-						var certificateContent = document.getElementById("certificateContent").value;
-			
-						// 更新页面中的证书详细信息
-						document.getElementById("fb196097-6a75-4c97-b521-39a5bbf87b42").innerHTML = schoolName;
-						document.getElementById("33689b8e-ad19-40cc-93e7-4712d3fa38a9").innerHTML = certificateDate;
-						document.getElementById("f381e401-8cb8-4e1c-a8dc-1aa2eafdab6e").innerHTML = "证书编号：" + certificateNumber;
-						document.getElementById("28931161-5919-4e3b-9cc3-54da2b40e593").innerHTML = certificateContent;
-						alert("修改成功");
-					}
-			
-					function resetFields() {
-						// 将输入字段重置为默认值
-						document.getElementById("schoolName").value = "广州市海珠外国语实验中学";
-						document.getElementById("certificateNumber").value = "1145141919810";
-						document.getElementById("certificateDate").value = "2024年02月30日";
-						document.getElementById("certificateContent").value = "高一 阳秦 同学荣获 2023-2024 学年第二学期修炼杯攀岩“岩王”争霸赛  一等奖（第一名）\n特颁此证，以资鼓励。";
-					}
+</html>
 
-				</script>
-				
-				</div>
-			</body>
-			</html>
 
-		
 
-		<script>
-		  
-            
-            function print(){
-        		var newwin = open();
-				var aa =document.getElementById("main_context").innerHTML;
-			 	newwin.document.write(aa);
-		  		newwin.print();
-           }
-            
-            function print(objId, scale) {
-        		var imgObj = document.getElementById("backImg");
-				document.body.scrollTop = 0;
-				var obj = $("#" + objId);
-				var width = imgObj.width;
-				var height = imgObj.height;				
-				html2canvas(obj, {
-					width: width,
-					height: height,
-					background: "rgba(255,255,255,1)",
-					onrendered: function (canvas) {					  
-						var image = Canvas2Image.saveAsJPEG(canvas, parseInt(width * scale), parseInt(height * scale));
-						
-						var w=window.open('about:blank','image from canvas');
-            			w.document.write("<img src='"+image+"' alt='from canvas'/>");
-               			w.print();
-					}
-				});
-			} 
-        
-		 function saveHtml2Image(objId, scale,flag) {
-        		var aTp = document.getElementById("backImg");
-				document.body.scrollTop = 0;
-				var obj = $("#" + objId);
-				var width = aTp.width;
-				var height = aTp.height;
-				html2canvas(obj, {
-					width: width,
-					height: height,
-					background: "rgba(255,255,255,1)",
-					onrendered: function (canvas) {
-						var dataUrl = Canvas2Image.saveAsJPEG(canvas, parseInt(width * scale), parseInt(height * scale));
-						var totalSize = dataUrl.length / 1024 / 1024;
-						if (totalSize > 1.3) {
-							dataUrl = null;
-							scale = scale - 0.1;
-							saveHtml2Image(objId, scale);
-						}
-	                    
- 						if(flag==true){ 						   
- 							$('#award-url').attr('src', dataUrl);
-                    		return;
-						}
-	 					
-						else {
-						   
-							$('#downloadImage').attr('href', dataUrl);
-							$('#downloadImage').attr('download', new Date().getTime() + '.jpg');
-							$('#downloadImage')[0].click();
-						}
-					}
-				});
-            }
-        
-		    $(function(){
-		         $.each($(".qrcode"),function(index,obj){		               
-						var str = $(obj).attr("data-field");
-						var w = $(obj).width();
-						var h = $(obj).height();
-						$(obj).qrcode({
-								render: "table",
-								width: w,
-								height:h,
-								text: str
-							});
-					});
-					
-				 var imgobj = $("#backImg");
-				 var width = imgobj.width;
-				 var height = imgobj.height;
-				 $("#main_context").css({"width":width, "height":height});
-				 
-				 saveHtml2Image("main_context",1,true);
-				 
-				 $("#btnDownload").click(function(){
-				     saveHtml2Image("main_context",1);
-				 });
-		    });
-		</script>
-	</head>
-	<body>
+<script>
 
-			
-			
-			<div id="main_context" style="position:relative;width:1731px;height:1240px;">
-				<img src="./证书查看_files/e9bef3cf24564fb2afbe7dc27aeddd98.jpg" id="backImg" data-field="1" style="position:absolute; top:0px; left:0px;z-index:-999">
-			<div data-field="" id="fb196097-6a75-4c97-b521-39a5bbf87b42" class="T" style="position: absolute; cursor: pointer; font-weight: 300; font-size: 40px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 990px; top: 834px; text-indent: 0px; width: 500px; text-align: center;">广州市海珠外国语实验中学</div><div data-field="获奖日期" id="33689b8e-ad19-40cc-93e7-4712d3fa38a9" class="T" style="position: absolute; cursor: pointer; font-weight: 300; font-size: 40px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 1000px; top: 914px; text-indent: 0px; width: 500px; text-align: center;">2024 年 02 月 30 日</div><div data-field="" id="f381e401-8cb8-4e1c-a8dc-1aa2eafdab6e" class="T" style="position: absolute; cursor: pointer; font-weight: 100; font-size: 20px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 275px; top: 962px; text-indent: 0px;">证书编号：1145141919810</div><div data-field="" id="28931161-5919-4e3b-9cc3-54da2b40e593" class="T" style="position: absolute; cursor: pointer; font-weight: 100; font-size: 50px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 210px; top: 497px; line-height: 100px; text-indent: 100px; width: 1300px;">高一 阳秦 同学荣获 2023-2024 学年第二学期修炼杯攀岩“岩王”争霸赛  一等奖（第一名）
-特颁此证，以资鼓励。</div><img data-field="2b0e158ff1c34fb786dac10a0197d1c2.png" id="b061f8dd-1567-45c5-bb90-610bce4d05e9" class="P" style="position: absolute; cursor: pointer; left: 1140px; top: 815px; width: 200px; height: 201px;" src="./证书查看_files/2b0e158ff1c34fb786dac10a0197d1c2.png"></div>
-		</form>		
 
-</body></html>
+function print() {
+var newwin = open();
+var aa = document.getElementById("main_context").innerHTML;
+newwin.document.write(aa);
+newwin.print();
+}
+
+function print(objId, scale) {
+var imgObj = document.getElementById("backImg");
+document.body.scrollTop = 0;
+var obj = $("#" + objId);
+var width = imgObj.width;
+var height = imgObj.height;
+html2canvas(obj,
+{
+width: width,
+height: height,
+background: "rgba(255,255,255,1)",
+onrendered: function (canvas) {
+var image = Canvas2Image.saveAsJPEG(canvas, parseInt(width * scale), parseInt(height * scale));
+
+var w = window.open('about:blank', 'image from canvas');
+w.document.write("<img src='"+image+"' alt='from canvas'/>");
+w.print();
+}
+});
+}
+
+function saveHtml2Image(objId, scale, flag) {
+var aTp = document.getElementById("backImg");
+document.body.scrollTop = 0;
+var obj = $("#" + objId);
+var width = aTp.width;
+var height = aTp.height;
+html2canvas(obj,
+{
+width: width,
+height: height,
+background: "rgba(255,255,255,1)",
+onrendered: function (canvas) {
+var dataUrl = Canvas2Image.saveAsJPEG(canvas, parseInt(width * scale), parseInt(height * scale));
+var totalSize = dataUrl.length / 1024 / 1024;
+if (totalSize > 1.3) {
+dataUrl = null;
+scale = scale - 0.1;
+saveHtml2Image(objId, scale);
+}
+
+if (flag == true) {
+$('#award-url').attr('src', dataUrl);
+return;
+} else {
+
+$('#downloadImage').attr('href', dataUrl);
+$('#downloadImage').attr('download', new Date().getTime() + '.jpg');
+$('#downloadImage')[0].click();
+}
+}
+});
+}
+
+$(function() {
+$.each($(".qrcode"), function(index, obj) {
+var str = $(obj).attr("data-field");
+var w = $(obj).width();
+var h = $(obj).height();
+$(obj).qrcode({
+render: "table",
+width: w,
+height: h,
+text: str
+});
+});
+
+var imgobj = $("#backImg");
+var width = imgobj.width;
+var height = imgobj.height;
+$("#main_context").css({
+"width": width, "height": height
+});
+
+saveHtml2Image("main_context", 1, true);
+
+$("#btnDownload").click(function() {
+saveHtml2Image("main_context", 1);
+});
+});
+</script>
+</head>
+<body>
+
+
+
+<div id="main_context" style="position:relative;width:1731px;height:1240px;">
+<img src="./证书查看_files/e9bef3cf24564fb2afbe7dc27aeddd98.jpg" id="backImg" data-field="1" style="position:absolute; top:0px; left:0px;z-index:-999">
+<div data-field="" id="fb196097-6a75-4c97-b521-39a5bbf87b42" class="T" style="position: absolute; cursor: pointer; font-weight: 300; font-size: 40px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 990px; top: 834px; text-indent: 0px; width: 500px; text-align: center;">
+广州市海珠外国语实验中学
+</div>
+<div data-field="获奖日期" id="33689b8e-ad19-40cc-93e7-4712d3fa38a9" class="T" style="position: absolute; cursor: pointer; font-weight: 300; font-size: 40px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 1000px; top: 914px; text-indent: 0px; width: 500px; text-align: center;">
+2024 年 02 月 30 日
+</div>
+<div data-field="" id="f381e401-8cb8-4e1c-a8dc-1aa2eafdab6e" class="T" style="position: absolute; cursor: pointer; font-weight: 100; font-size: 20px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 275px; top: 962px; text-indent: 0px;">
+证书编号：1145141919810
+</div>
+<div data-field="" id="28931161-5919-4e3b-9cc3-54da2b40e593" class="T" style="position: absolute; cursor: pointer; font-weight: 100; font-size: 50px; color: rgb(0, 0, 0); letter-spacing: 0px; left: 210px; top: 497px; line-height: 100px; text-indent: 100px; width: 1300px;">
+高一 阳秦 同学荣获 2023-2024 学年第二学期修炼杯攀岩“岩王”争霸赛  一等奖（第一名）
+特颁此证，以资鼓励。
+</div>
+<img data-field="2b0e158ff1c34fb786dac10a0197d1c2.png" id="b061f8dd-1567-45c5-bb90-610bce4d05e9" class="P" style="position: absolute; cursor: pointer; left: 1140px; top: 815px; width: 200px; height: 201px;" src="./证书查看_files/2b0e158ff1c34fb786dac10a0197d1c2.png">
+</div>
+</form>
+
+</body>
+</html>
